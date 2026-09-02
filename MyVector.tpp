@@ -10,6 +10,8 @@ template <class T>
 MyVector<T>::MyVector(const MyVector<T> &obj)
 {
     m_data = new T[m_capacity];
+    m_capacity = obj.m_capacity;
+    m_size = obj.m_size;
     for (int i=0; i < m_size; i++) {
         m_data[i] = obj.m_data[i];
     }
@@ -60,20 +62,23 @@ void MyVector<T>::push_back(const T& value)
         int newCapacity = (m_capacity == 0) ? 1 : m_capacity * 2;
         T* newData = new T[newCapacity];
         for (int i = 0; i < m_size; i++) {
-            newdata[i] = m_data[i];
+            newData[i] = m_data[i];
         }
+    
+    delete[] m_data;
+    m_data = newData;
+    m_capacity = newCapacity;
     }
 
-    delete[] m_data;
-    m_data = newdata;
-    m_capacity = newCapacity
+    m_data[m_size] = value;
+    m_size++;
 }
 
 template <class T>
 T& MyVector<T>::at(int i)
 {
     if (i < 0 || i >= m_size) {
-        throw std::out_of_range("Index out of Range");
+        throw std::cerr("Index out of Range");
     }
     return m_data[i];
 }
