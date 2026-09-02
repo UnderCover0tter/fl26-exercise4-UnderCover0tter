@@ -1,5 +1,8 @@
 // ECE 3574 Exercise: Templates - starter code
 
+#include <iostream>
+#include <cstdlib>
+
 template <class T>
 MyVector<T>::MyVector() : m_data(nullptr), m_capacity(0), m_size(0)
 {
@@ -78,7 +81,8 @@ template <class T>
 T& MyVector<T>::at(int i)
 {
     if (i < 0 || i >= m_size) {
-        throw std::cerr("Index out of Range");
+        std::cerr << "Index out of Range" << std::endl;
+        exit(1);
     }
     return m_data[i];
 }
